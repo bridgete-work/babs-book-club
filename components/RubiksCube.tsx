@@ -16,9 +16,9 @@ export default function RubiksCube() {
     <div
       className="rubiks-cube"
       aria-hidden="true"
-      style={{ top: "15%", right: "12%" }}
+      style={{ top: "12%", right: "5%" }}
     >
-      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="96" height="96" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
         {/* Top face */}
         <polygon points="32,2 58,16 32,30 6,16" fill="#f5f500" />
         {/* Top face grid lines */}
