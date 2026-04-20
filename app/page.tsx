@@ -110,7 +110,7 @@ export default function Home() {
       {/* Animated Diamond Rating Scale */}
       <section className="max-w-3xl mx-auto px-6 pb-10">
         <div className="rounded-xl border border-white/10 bg-white/5 p-6">
-          <p className="text-xs tracking-[0.2em] uppercase text-[#c9a84c] font-sans mb-6">The Rating Scale</p>
+          <p className="text-xs tracking-[0.2em] uppercase text-[#c9a84c] font-sans mb-6">The Diamond Rating Scale</p>
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
             {RATING_TIERS.map(({ rating, label }) => (
               <div key={rating} className="text-center space-y-3">
@@ -120,12 +120,13 @@ export default function Home() {
                       key={i}
                       className={i <= rating ? "diamond-animated" : ""}
                       style={{
-                        fontSize: "1.1rem",
-                        color: i <= rating ? "#ff2d78" : "rgba(255,255,255,0.1)",
-                        animationDelay: i <= rating ? `${(i - 1) * 0.3}s` : "0s",
+                        fontSize: "1.3rem",
+                        opacity: i <= rating ? 1 : 0.1,
+                        animationDelay: i <= rating ? `${(i - 1) * 0.35}s` : "0s",
+                        display: "inline-block",
                       }}
                     >
-                      ◆
+                      {i <= rating ? "💎" : "◇"}
                     </span>
                   ))}
                 </div>
