@@ -1,19 +1,35 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export default function RubiksCube() {
-  const [visible, setVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => setVisible(true), 5000);
-    return () => clearTimeout(timer);
-  }, []);
+    let interval: ReturnType<typeof setInterval>;
 
-  if (!visible) return null;
+    const triggerShoot = () => {
+      const el = ref.current;
+      if (!el) return;
+      el.style.animation = "none";
+      void el.offsetHeight; // force reflow to restart animation
+      el.style.animation = "cube-shoot 4s cubic-bezier(0.2, 0.8, 0.4, 1) forwards";
+    };
+
+    const timeout = setTimeout(() => {
+      triggerShoot();
+      interval = setInterval(triggerShoot, 15000);
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeout);
+      clearInterval(interval);
+    };
+  }, []);
 
   return (
     <div
+      ref={ref}
       className="rubiks-cube"
       aria-hidden="true"
       style={{ top: "12%", right: "5%" }}

@@ -134,7 +134,7 @@
   position: fixed;
   z-index: 10;
   pointer-events: none;
-  animation: cube-shoot 4s cubic-bezier(0.2, 0.8, 0.4, 1) forwards;
+  opacity: 0;
 }
 
 .diamond-animated {
