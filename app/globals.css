@@ -96,12 +96,68 @@
   16.01%, 100% { transform: translateX(-180px); }
 }
 
+@keyframes skate-across-blue {
+  0% { transform: translateX(-180px); }
+  16% { transform: translateX(calc(100vw + 180px)); }
+  16.01%, 100% { transform: translateX(-180px); }
+}
+
+@keyframes diamond-shine {
+  0%, 100% { filter: brightness(1) drop-shadow(0 0 2px #ff2d78); transform: rotate(0deg) scale(1); }
+  25% { filter: brightness(1.8) drop-shadow(0 0 8px #ff2d78) drop-shadow(0 0 16px #fff); transform: rotate(5deg) scale(1.15); }
+  50% { filter: brightness(1.3) drop-shadow(0 0 4px #c9a84c); transform: rotate(0deg) scale(1.05); }
+  75% { filter: brightness(2) drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #ff2d78); transform: rotate(-5deg) scale(1.2); }
+}
+
+@keyframes sparkle-float {
+  0%, 100% { opacity: 0; transform: translateY(0) scale(0.5); }
+  50% { opacity: 1; transform: translateY(-12px) scale(1); }
+}
+
+@keyframes star-twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
 .skater-girl {
   animation: skate-across 30s linear infinite;
   position: fixed;
   bottom: 80px;
   left: 0;
   z-index: 5;
+  pointer-events: none;
+}
+
+.skater-girl-blue {
+  animation: skate-across-blue 30s linear infinite;
+  animation-delay: -15s;
+  position: fixed;
+  bottom: 60px;
+  left: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.diamond-animated {
+  display: inline-block;
+  animation: diamond-shine 2.5s ease-in-out infinite;
+}
+
+.diamond-animated:nth-child(2) { animation-delay: 0.4s; }
+.diamond-animated:nth-child(3) { animation-delay: 0.8s; }
+.diamond-animated:nth-child(4) { animation-delay: 1.2s; }
+.diamond-animated:nth-child(5) { animation-delay: 1.6s; }
+
+.sparkle {
+  animation: sparkle-float ease-in-out infinite;
+  position: absolute;
+  pointer-events: none;
+  color: #ff2d78;
+}
+
+.star-bg {
+  animation: star-twinkle ease-in-out infinite;
+  position: absolute;
   pointer-events: none;
 }
 

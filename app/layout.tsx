@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import Link from "next/link";
 import SkaterGirl from "@/components/SkaterGirl";
+import SkaterGirlBlue from "@/components/SkaterGirlBlue";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="flex-1 relative overflow-hidden">
           {children}
           <SkaterGirl />
+          <SkaterGirlBlue />
         </div>
 
         <footer className="border-t border-white/10 py-6 text-center text-xs text-white/30 tracking-widest uppercase">

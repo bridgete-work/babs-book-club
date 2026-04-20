@@ -3,6 +3,29 @@ import books from "@/data/books.json";
 import { buttonVariants } from "@/components/ui/button";
 import DiamondRating from "@/components/books/DiamondRating";
 
+const SPARKLES = [
+  { top: "10%", left: "8%", size: "1rem", delay: "0s", duration: "3s" },
+  { top: "20%", left: "88%", size: "0.7rem", delay: "0.8s", duration: "2.5s" },
+  { top: "35%", left: "5%", size: "0.5rem", delay: "1.5s", duration: "4s" },
+  { top: "15%", left: "75%", size: "1.2rem", delay: "0.3s", duration: "3.5s" },
+  { top: "60%", left: "92%", size: "0.8rem", delay: "1.2s", duration: "2.8s" },
+  { top: "70%", left: "3%", size: "0.6rem", delay: "0.6s", duration: "3.2s" },
+  { top: "45%", left: "95%", size: "0.9rem", delay: "2s", duration: "2.6s" },
+  { top: "80%", left: "12%", size: "0.5rem", delay: "1.8s", duration: "3.8s" },
+  { top: "25%", left: "50%", size: "0.4rem", delay: "0.4s", duration: "4.2s" },
+  { top: "55%", left: "60%", size: "0.6rem", delay: "2.2s", duration: "3s" },
+  { top: "8%", left: "40%", size: "0.8rem", delay: "1s", duration: "2.4s" },
+  { top: "90%", left: "45%", size: "0.5rem", delay: "0.2s", duration: "3.6s" },
+];
+
+const RATING_TIERS = [
+  { rating: 1, label: "Raw" },
+  { rating: 2, label: "Cut" },
+  { rating: 3, label: "Polished" },
+  { rating: 4, label: "Radiant" },
+  { rating: 5, label: "Marry Me" },
+];
+
 export default function Home() {
   const avgRating = books.length
     ? (books.reduce((sum, b) => sum + b.rating, 0) / books.length).toFixed(1)
@@ -19,6 +42,7 @@ export default function Home() {
     <main>
       {/* Hero */}
       <section className="relative py-28 px-6 text-center overflow-hidden">
+        {/* Background glow */}
         <div
           className="absolute inset-0 opacity-20"
           style={{
@@ -26,13 +50,31 @@ export default function Home() {
               "radial-gradient(ellipse at 60% 40%, #ff2d78 0%, transparent 60%), radial-gradient(ellipse at 30% 70%, #1d4ed8 0%, transparent 50%)",
           }}
         />
+
+        {/* Floating sparkles */}
+        {SPARKLES.map((s, i) => (
+          <span
+            key={i}
+            className="sparkle"
+            style={{
+              top: s.top,
+              left: s.left,
+              fontSize: s.size,
+              animationDelay: s.delay,
+              animationDuration: s.duration,
+            }}
+          >
+            {i % 3 === 0 ? "◆" : i % 3 === 1 ? "✦" : "★"}
+          </span>
+        ))}
+
         <div className="relative z-10 max-w-2xl mx-auto space-y-6">
           <p className="text-xs tracking-[0.3em] uppercase text-[#c9a84c] font-sans">2026 Reading List</p>
           <h1 className="font-heading text-6xl md:text-7xl font-bold text-white leading-none">
             Babs&apos; Book Club
           </h1>
           <p className="text-white/50 text-lg font-sans">
-            Every book I read this year, rated and reviewed. No filter.
+            Every book I read this year, rated and reviewed.
           </p>
           <div className="flex gap-4 justify-center flex-wrap pt-2">
             <Link href="/books" className={buttonVariants({ size: "lg" })}>
@@ -57,10 +99,7 @@ export default function Home() {
             { value: avgRating, label: "Avg Rating" },
             { value: `${fictionCount}F / ${nonFictionCount}NF`, label: "Fiction / Non-fiction" },
           ].map(({ value, label }) => (
-            <div
-              key={label}
-              className="rounded-xl border border-white/10 bg-white/5 p-6 text-center"
-            >
+            <div key={label} className="rounded-xl border border-white/10 bg-white/5 p-6 text-center">
               <p className="font-heading text-4xl font-bold text-[#ff2d78]">{value}</p>
               <p className="text-white/40 text-xs mt-1 uppercase tracking-widest font-sans">{label}</p>
             </div>
@@ -68,21 +107,29 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Diamond legend */}
+      {/* Animated Diamond Rating Scale */}
       <section className="max-w-3xl mx-auto px-6 pb-10">
         <div className="rounded-xl border border-white/10 bg-white/5 p-6">
-          <p className="text-xs tracking-[0.2em] uppercase text-[#c9a84c] font-sans mb-4">The Rating Scale</p>
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-            {[
-              { rating: 1, label: "Raw" },
-              { rating: 2, label: "Cut" },
-              { rating: 3, label: "Polished" },
-              { rating: 4, label: "Radiant" },
-              { rating: 5, label: "Marry Me" },
-            ].map(({ rating, label }) => (
-              <div key={rating} className="text-center space-y-1">
-                <DiamondRating rating={rating} size="sm" />
-                <p className="text-white/40 text-xs font-sans">{label}</p>
+          <p className="text-xs tracking-[0.2em] uppercase text-[#c9a84c] font-sans mb-6">The Rating Scale</p>
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
+            {RATING_TIERS.map(({ rating, label }) => (
+              <div key={rating} className="text-center space-y-3">
+                <div className="flex justify-center gap-0.5">
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <span
+                      key={i}
+                      className={i <= rating ? "diamond-animated" : ""}
+                      style={{
+                        fontSize: "1.1rem",
+                        color: i <= rating ? "#ff2d78" : "rgba(255,255,255,0.1)",
+                        animationDelay: i <= rating ? `${(i - 1) * 0.3}s` : "0s",
+                      }}
+                    >
+                      ◆
+                    </span>
+                  ))}
+                </div>
+                <p className="text-white/50 text-xs font-sans">{label}</p>
               </div>
             ))}
           </div>
