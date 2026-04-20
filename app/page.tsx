@@ -2,6 +2,7 @@ import Link from "next/link";
 import books from "@/data/books.json";
 import { buttonVariants } from "@/components/ui/button";
 import DiamondRating from "@/components/books/DiamondRating";
+import RubiksCube from "@/components/RubiksCube";
 
 const SPARKLES = [
   { top: "10%", left: "8%", size: "1rem", delay: "0s", duration: "3s" },
@@ -34,12 +35,13 @@ export default function Home() {
   const fictionCount = books.filter((b) => b.genre === "Fiction").length;
   const nonFictionCount = books.filter((b) => b.genre === "Non-fiction").length;
 
-  const recent = [...books]
-    .sort((a, b) => new Date(b.dateRead).getTime() - new Date(a.dateRead).getTime())
-    .slice(0, 3);
+  const recent = ["the-correspondent", "strangers", "signs"]
+    .map((id) => books.find((b) => b.id === id))
+    .filter(Boolean) as typeof books;
 
   return (
     <main>
+      <RubiksCube />
       {/* Hero */}
       <section className="relative py-28 px-6 text-center overflow-hidden">
         {/* Background glow */}
@@ -74,7 +76,7 @@ export default function Home() {
             Babs&apos; Book Club
           </h1>
           <p className="text-white/50 text-lg font-sans">
-            Every book I read this year, rated and reviewed.
+            Every book I&apos;ve read this year (so far), rated and reviewed.
           </p>
           <div className="flex gap-4 justify-center flex-wrap pt-2">
             <Link href="/books" className={buttonVariants({ size: "lg" })}>

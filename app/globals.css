@@ -92,14 +92,14 @@
 
 @keyframes skate-across {
   0% { transform: translateX(-180px); }
-  16% { transform: translateX(calc(100vw + 180px)); }
-  16.01%, 100% { transform: translateX(-180px); }
+  50% { transform: translateX(calc(100vw + 180px)); }
+  50.01%, 100% { transform: translateX(-180px); }
 }
 
-@keyframes skate-across-blue {
-  0% { transform: translateX(-180px); }
-  16% { transform: translateX(calc(100vw + 180px)); }
-  16.01%, 100% { transform: translateX(-180px); }
+@keyframes cube-fall {
+  0%   { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  70%  { opacity: 1; }
+  100% { transform: translate(-260px, 500px) rotate(540deg); opacity: 0; }
 }
 
 @keyframes diamond-shine {
@@ -121,7 +121,7 @@
 }
 
 .skater-girl {
-  animation: skate-across 30s linear infinite;
+  animation: skate-across 10s linear infinite;
   position: fixed;
   bottom: 80px;
   left: 0;
@@ -129,14 +129,11 @@
   pointer-events: none;
 }
 
-.skater-girl-blue {
-  animation: skate-across-blue 30s linear infinite;
-  animation-delay: 1.8s;
+.rubiks-cube {
   position: fixed;
-  bottom: 55px;
-  left: 0;
-  z-index: 5;
+  z-index: 10;
   pointer-events: none;
+  animation: cube-fall 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 .diamond-animated {
